@@ -21,7 +21,7 @@ import com.nimap.entity.Product;
 import com.nimap.service.ProductService;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("api/product")
 public class ProductController {
 
 	@Autowired

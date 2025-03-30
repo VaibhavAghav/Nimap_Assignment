@@ -22,7 +22,7 @@ import com.nimap.entity.Category;
 import com.nimap.service.CategoryService;
 
 @RestController
-@RequestMapping("/category")
+@RequestMapping("api/category")
 public class CategoryController {
 
 	@Autowired
