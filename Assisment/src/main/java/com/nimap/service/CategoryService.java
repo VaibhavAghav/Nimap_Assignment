@@ -21,15 +21,17 @@ public class CategoryService {
 	
 	
 	// Add Category
+	@Transactional
 	public void addCategory(Category category) {
+		System.out.println("Inside service");
 		categoryRepo.save(category);
+		System.out.println(" after Inside service");
 	}
 	
 	// Update Category
 	public void updateCategory(Category category) {
 		categoryRepo.save(category);
 	}
-	
 	
 	// Pageable 
 	// Get All Category

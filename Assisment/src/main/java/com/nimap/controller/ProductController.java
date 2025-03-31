@@ -21,37 +21,38 @@ import com.nimap.entity.Product;
 import com.nimap.service.ProductService;
 
 @RestController
-@RequestMapping("api/product")
+@RequestMapping("api/products")
 public class ProductController {
 
 	@Autowired
 	public ProductService productServ ;
 	
 	//Post add product
-	@PostMapping("/add")
+	@PostMapping
 	public ResponseEntity<String> addProduct(@RequestBody Product product) {
+		System.out.println("Inside addperoduct");
 		productServ.addProduct(product);
 		return ResponseEntity.ok("Category added successfully");
 	}
 	
 	// PUT update product
-	@PutMapping("/update")
+	@PutMapping("/{id}")
 	public ResponseEntity<String> updateProduct(@RequestBody Product product) {
 		productServ.updateProduct(product);
 		return ResponseEntity.ok("Category Updated successfully");
 	}
 	
 	//GET get all product
-	@GetMapping("/getAll")
+	@GetMapping
 	public ResponseEntity<List<Product>> getAllProduct(@RequestParam(defaultValue = "0") int page, 
-													   @RequestParam(defaultValue = "5") int size){
+													   @RequestParam(defaultValue = "10") int size){
 		Pageable pageable = PageRequest.of(page, size);
 		List<Product> allProduct = productServ.getAllProduct(pageable);
 		return ResponseEntity.ok(allProduct);
 	}
 	
 	//GET get product by id
-	@GetMapping(value = "/get/{id}")
+	@GetMapping(value = "/{id}")
 	public ResponseEntity<?> getProductById(@PathVariable("id") int id) {
 		Optional<Product> product = productServ.getProductById(id);
 		if(!product.isEmpty())
@@ -61,7 +62,7 @@ public class ProductController {
 	}
 	
 	//DELETE delete product
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deleteProduct(@PathVariable("id") int id) {
 		boolean isProduct = productServ.deleteProduct(id);
 		

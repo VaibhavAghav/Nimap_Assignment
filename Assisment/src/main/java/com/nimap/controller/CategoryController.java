@@ -22,30 +22,30 @@ import com.nimap.entity.Category;
 import com.nimap.service.CategoryService;
 
 @RestController
-@RequestMapping("api/category")
+@RequestMapping("api/categories")
 public class CategoryController {
 
 	@Autowired
 	public CategoryService categoryServ;
 
 	// Post adding Category
-	@PostMapping("/add")
+	@PostMapping
 	public ResponseEntity<String> addCategory(@RequestBody Category category) {
 		categoryServ.addCategory(category);
 		return ResponseEntity.ok("Category added successfully");
 	}
 
 	// Put Updating Category
-	@PutMapping("/update")
+	@PutMapping
 	public ResponseEntity<String> updateCategory(@RequestBody Category category) {
 		categoryServ.updateCategory(category);
 		return ResponseEntity.ok("Category Updated successfully");
 	}
 
 	// Get Get All Category
-	@GetMapping("/getAll")
+	@GetMapping
 	public ResponseEntity<List<Category>> getAllCategory(@RequestParam(defaultValue = "0") int page,
-														 @RequestParam(defaultValue = "5") int size) {
+														 @RequestParam(defaultValue = "10") int size) {
 		
 		Pageable pageable = PageRequest.of(page, size);
 		List<Category> allCategory = categoryServ.getAllCategory(pageable);
@@ -53,7 +53,7 @@ public class CategoryController {
 	}
 
 	// Get get By ID
-	@GetMapping(value = "/get/{id}")
+	@GetMapping(value = "/{id}")
 	public ResponseEntity<?> getCategoryById(@PathVariable("id") int id) {
 		Optional<Category> category = categoryServ.getCategoryById(id);
 		if (category.isEmpty()) {
@@ -64,7 +64,7 @@ public class CategoryController {
 	}
 
 	// Delete delete by ID
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deleteCategory(@PathVariable("id") int id) {
 		boolean isDelete = categoryServ.deleteCategory(id);
 		if (isDelete)
